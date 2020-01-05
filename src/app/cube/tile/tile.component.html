@@ -1,3 +1,1 @@
-<div class="tile tile-{{tile.type}}" (click)="log()">
-  {{tile.x}} {{tile.y}}
-</div>
+<div class="tile tile-{{tile.type}} {{class}}" [class.finish]="isFinish"></div>

@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ApiService } from "src/app/cube/services/api.service";
 import { delay } from "rxjs/operators";
+import { CubeMainService } from "src/app/cube/services/cube-main.service";
+import { Player } from "src/app/cube/services/cube.service";
 
 @Component({
   selector: 'cube-dice',
@@ -9,11 +11,16 @@ import { delay } from "rxjs/operators";
 })
 export class DiceComponent implements OnInit {
   dice: number = 0;
-
-  constructor(private api: ApiService) {
+  player: Player;
+  constructor(private api: ApiService,
+              private main: CubeMainService) {
   }
 
   ngOnInit() {
+    this.main._player
+      .subscribe((player) => {
+        this.player = player;
+      });
   }
 
   @HostListener('document:keypress', ['$event'])
@@ -25,12 +32,17 @@ export class DiceComponent implements OnInit {
   }
 
   getNumber() {
-    this.dice = 0;
-    this.api.getNumber()
-      .pipe(delay(200))
-      .subscribe((result) => {
-        this.dice = result[0];
-        console.log(result);
-      })
+    if (!this.main.player.steps) {
+      this.dice = 0;
+      this.api.getNumber()
+        .pipe(delay(200))
+        .subscribe((result: number[]) => {
+          this.dice = result[0];
+          const player = this.main.player;
+          player.steps = this.dice;
+          this.main.player = player;
+        })
+    }
+
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Coordinate, CubeService, Player } from "src/app/cube/services/cube.service";
+import { CubeMainService } from "src/app/cube/services/cube-main.service";
 
 @Component({
   selector: 'cube-floor',
@@ -9,16 +10,14 @@ import { Coordinate, CubeService, Player } from "src/app/cube/services/cube.serv
 export class FloorComponent implements OnInit {
   @Input() coords: Coordinate[][] = [];
   players: Player[] = [
-    new Player('blue', 'First'),
-    new Player('red', 'Second'),
-    new Player('green', 'Last')
+    new Player('blue', 'First')
   ];
-  constructor(private game: CubeService) { }
+  constructor(private game: CubeService,
+              private main: CubeMainService) { }
 
   ngOnInit() {
     this.players[0].setPosition({top: 480, left: 480});
-    this.players[1].setPosition({top: 0, left: 0});
-    this.players[2].setPosition({top: 0, left: 480});
+    this.main.player = this.players[0];
     this.coords = this.game.init();
   }
 

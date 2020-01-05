@@ -43,6 +43,10 @@ export class Player {
     this.pos.x = this.pos.top / 48;
     this.pos.y = this.pos.left / 48;
   }
+  calculatePosition() {
+    this.pos.top = this.pos.x * 48;
+    this.pos.left = this.pos.y * 48;
+  }
 }
 
 export class Coordinate {

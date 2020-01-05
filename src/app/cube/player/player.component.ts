@@ -15,38 +15,43 @@ export class PlayerComponent implements OnInit {
   @HostListener('document:keypress', ['$event'])
   move(e) {
     const c = e.key;
-
+    if (!this.player.steps) {
+      return;
+    }
     if (c == 'w') {
       if (this.player.pos.top != 0) {
         this.player.pos.top -= 48;
         this.player.moved = true;
-      } else {
-        // this.player.pos.top -= 48;
       }
     } else if (c == 'a') {
       if (this.player.pos.left != 0) {
         this.player.pos.left -= 48;
         this.player.moved = true;
-      } else {
-        // this.player.pos.left -= 48;
       }
     } else if (c == 's') {
       if (this.player.pos.top < this.cube.field.height) {
         this.player.pos.top += 48;
         this.player.moved = true;
-      } else {
-        // this.player.pos.top += 48;
       }
     } else if (c == 'd') {
       if (this.player.pos.left < this.cube.field.width) {
         this.player.pos.left += 48;
         this.player.moved = true;
-      } else {
-        // this.player.pos.left += 48;
       }
     }
     this.player.calculateCoordinates();
-    console.log(this.player.pos);
+    this.player.calculatePosition();
+    this.calculateStep(this.player);
+    this.player.steps--;
   }
 
+  canGo() {
+    const {x, y} = this.player.pos;
+    return this.cube.field.map[x][y].can.enter;
+  }
+
+  calculateStep(player: Player) {
+    const {x, y} = player.pos;
+    console.log(this.cube.field.map[x][y], this.canGo());
+  }
 }

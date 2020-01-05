@@ -8,11 +8,13 @@ import { Coordinate } from "src/app/cube/services/cube.service";
 })
 export class TileComponent implements OnInit {
   @Input() tile: Coordinate;
+  class: string = '';
+  isFinish: boolean = false;
   constructor() { }
 
   ngOnInit() {
-  }
-  log() {
-    console.log(this.tile.x, this.tile.y);
+    if (this.tile.type === 8) {
+      this.class = 'regular';
+    }
   }
 }

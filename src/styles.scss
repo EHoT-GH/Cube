@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "assets/styles/variables";
 * {
   box-sizing: border-box;
 }
@@ -38,7 +38,7 @@ a {
     width: 48px;
     height: 48px;
     margin: 0;
-    box-shadow: 0 0 0 .1em hsla(0, 0%, 0%, .2);
+    //box-shadow: 0 0 0 .1em hsla(0, 0%, 0%, .2);
     border: solid 1px gray;
     line-height: 48px;
     text-align: center;
@@ -46,8 +46,20 @@ a {
     vertical-align: top;
     user-select: none;
     &.tile-0 {
-      color: transparent;
       background: transparent;
+      border-color: transparent;
+    }
+    &.regular {
+      background: $regular;
+    }
+    &.tile {
+      &-1, &-5 {background: $red;}
+      &-2, &-6 {background: $green;}
+      &-3, &-7 {background: $blue;}
+      &-4, &-9 {background: $yellow;}
+      &-5, &-6, &-7, &-9  {
+        opacity: 0.75;
+      }
     }
   }
   .player {
@@ -80,6 +92,18 @@ a {
       transform-origin: 50% 0;
       transform: rotateX(-90deg);
     }
+    &.red div{
+      background: $red;
+    }
+    &.green div{
+      background: $green;
+    }
+    &.blue div{
+      background: $blue;
+    }
+    &.yellow div{
+      background: $yellow;
+    }
   }
 }
 
@@ -88,19 +112,6 @@ a {
   transform: rotateY(90deg);
 }
 
-
-.floor .player.red div{
-  background: rgba(255, 0, 0, 0.5);
-}
-
-.floor .player.blue div{
-  /* I know it's not blue */
-  background: rgb(66, 144, 255);
-}
-
-.floor .player.green div{
-  background: rgba(0, 255, 0, 0.5);
-}
 
 @keyframes fallanddie {
   from {
