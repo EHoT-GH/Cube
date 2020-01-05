@@ -1,1 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  color: #ccc;
+  background: #262626;
+  font-family: monospace;
+  height: 100%;
+  width: 100%;
+  font-size: 13pt;
+}
+
+a {
+  color: #000;
+}
+
+.wrapper {
+  position: absolute;
+  width: 590px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.floor {
+  transform: rotateX(55deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+  font-size: 0;
+  .tile {
+    font-size: 11pt;
+    color: #ccc;
+    display: inline-block;
+    background: #111;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    box-shadow: 0 0 0 .1em hsla(0, 0%, 0%, .2);
+    border: solid 1px gray;
+    line-height: 48px;
+    text-align: center;
+    position: relative;
+    vertical-align: top;
+    user-select: none;
+    &.tile-0 {
+      color: transparent;
+      background: transparent;
+    }
+  }
+  .player {
+    position: absolute;
+    z-index: 1;
+    width: 47px;
+    height: 47px;
+    border-radius: 3px;
+    transform-style: preserve-3d;
+    transition: all 250ms;
+    opacity: 1;
+    &.die{
+      animation: fallanddie 0.5s;
+      animation-fill-mode: forwards;
+    }
+    div {
+      border: solid 1px rgba(0,0,0,.5);
+      position: absolute;
+      width: 47px;
+      height: 47px;
+      //border-radius: 3px;
+      transform-style: preserve-3d;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .front {
+      transform-origin: 50% 100%;
+      transform: rotateX(-90deg);
+    }
+    .top {
+      transform-origin: 50% 0;
+      transform: rotateX(-90deg);
+    }
+  }
+}
+
+.floor .player .right {
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+}
+
+
+.floor .player.red div{
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.floor .player.blue div{
+  /* I know it's not blue */
+  background: rgb(66, 144, 255);
+}
+
+.floor .player.green div{
+  background: rgba(0, 255, 0, 0.5);
+}
+
+@keyframes fallanddie {
+  from {
+    z-index: -1;
+    opacity: 1;
+    transform: translateZ(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateZ(-150px);
+  }
+}
+
+.warning{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 13px;
+  color: rgba(150,50,50,1);
+}

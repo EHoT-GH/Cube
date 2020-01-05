@@ -1,0 +1,12 @@
+<cube-dice ></cube-dice>
+<div class="wrapper">
+  <div class="floor">
+    <div class="players">
+
+      <!-- Players -->
+      <cube-player [player]="player" *ngFor="let player of players"></cube-player>
+
+    </div>
+    <cube-row *ngFor="let row of coords" [row]="row"></cube-row>
+  </div>
+</div>
